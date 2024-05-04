@@ -1,0 +1,81 @@
+# This workflow will trigger Datadog Synthetic tests within your Datadog organisation
+# For more information on running Synthetic tests within your GitHub workflows see: https://docs.datadoghq.com/synthetics/cicd_integrations/github_actions/
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# To get started:
+
+# 1. Add your Datadog API (DD_API_KEY) and Application Key (DD_APP_KEY) as secrets to your GitHub repository. For more information, see: https://docs.datadoghq.com/account_management/api-app-keys/.
+# 2. Start using the action within your workflow
+
+name: Run Datadog Synthetic tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Run Synthetic tests within your GitHub workflow.
+    # For additional configuration options visit the action within the marketplace: https://github.com/marketplace/actions/datadog-synthetics-ci
+    - name: Run Datadog Synthetic tests
+      uses: DataDog/synthetics-ci-github-action@2b56dc0cca9daa14ab69c0d1d6844296de8f941e
+      with:
+        api_key: ${{secrets.DD_API_KEY}}
+        app_key: ${{secrets.DD_APP_KEY}}
+        test_search_query: 'tag:e2e-tests' #Modify this tag to suit your tagging strategy
+
+
+- Nama :Sakura
+  kegunaan: tindakan/cache@v4.0.2
+  dengan:
+    # Daftar file, direktori, dan pola wildcard untuk di-cache dan dipulihkan
+    jalur:
+    # Kunci eksplisit untuk memulihkan dan menyimpan cache
+    kunci:
+    # Daftar kunci yang diurutkan untuk digunakan untuk memulihkan cache basi jika tidak ada cache yang terjadi pada kunci. Catatan `cache-hit` mengembalikan false dalam kasus ini.
+    kunci pemulihan: # opsional
+    # Ukuran potongan yang digunakan untuk membagi file besar selama pengunggahan, dalam byte
+    unggah-ukuran potongan: # opsional
+    # Boolean opsional ketika diaktifkan, memungkinkan pelari windows untuk menyimpan atau memulihkan cache yang dapat dipulihkan atau disimpan masing-masing di platform lain
+    aktifkanCrossOsArchive: # opsional, defaultnya salah
+    # Gagalkan alur kerja jika entri cache tidak ditemukan
+    fail-on-cache-miss: # opsional, defaultnya salah
+    # Periksa apakah ada entri cache untuk input yang diberikan (kunci, kunci pemulihan) tanpa mengunduh cache
+    hanya pencarian: # opsional, defaultnya salah
+    # Jalankan langkah posting untuk menyimpan cache meskipun langkah sebelumnya gagal
+    simpan-selalu: # opsional, defaultnya salah
+                - nama: Pengaturan lingkungan Node.js
+  penggunaan: tindakan/setup-node@v4.0.2
+  dengan:
+    # Atur selalu-auth di npmrc.
+    selalu-auth: # opsional, defaultnya salah
+    # Versi Spesifikasi versi yang akan digunakan. Contoh: 12.x, 10.15.1, >=10.15.0.
+    versi simpul: # opsional
+    # File yang berisi spesifikasi versi versi yang akan digunakan. Contoh: package.json, .nvmrc, .node-version, .tool-versions.
+    file versi simpul: # opsional
+    # Arsitektur target untuk digunakan Node. Contoh: x86, x64. Akan menggunakan arsitektur sistem secara default.
+    arsitektur: # opsional
+    # Atur opsi ini jika Anda ingin tindakan memeriksa versi terbaru yang tersedia dan memenuhi spesifikasi versi.
+    periksa-terbaru: # opsional
+    # Registri opsional untuk diatur untuk autentikasi. Akan mengatur registri dalam file .npmrc dan .yarnrc tingkat proyek, dan mengatur auth untuk membaca dari env.NODE_AUTH_TOKEN.
+    url registri: # opsional
+    # Cakupan opsional untuk mengautentikasi terhadap pendaftar yang tercakup. Akan kembali ke pemilik repositori saat menggunakan registri Paket GitHub (https://npm.pkg.github.com/).
+    cakupan: # opsional
+    # Digunakan untuk menarik distribusi node dari versi node. Karena ada default, ini biasanya tidak disediakan oleh pengguna. Saat menjalankan tindakan ini di github.com, nilai default sudah cukup. Saat menjalankan GHES, Anda dapat memberikan token akses pribadi untuk github.com jika Anda mengalami pembatasan tarif.
+    token: # opsional, defaultnya adalah ${{ github.server_url == 'https://github.com' && github.token || '' }}
+    # Digunakan untuk menentukan manajer paket untuk caching di direktori default. Nilai yang didukung: npm, benang, pnpm.
+    cache: # opsional
+    # Digunakan untuk menentukan jalur ke file ketergantungan: package-lock.json, benang.lock, dll. Mendukung wildcard atau daftar nama file untuk menyimpan beberapa dependensi.
+    jalur ketergantungan-cache: # opsional
+          
